@@ -28,10 +28,10 @@ const SearchResultHeader = () => {
   }
 
   return (
-    <div className="p-[10px] pb-2 md:pr-5 md:pt-3 border-b border-[#ebebeb] flex md:block flex-col items-center sticky top-0 bg-white">
+    <div className="pl-10 md:pr-5 md:pt-3 border-b border-[#ebebeb] flex md:block flex-col items-center sticky top-0 bg-white">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center grow">
-          <img src={Logo} alt="" className="hidden md:block w-[92px] mr-7 cursor-pointer" />
+          <Link to={"/"}><img src={Logo} alt="" className="hidden md:block w-[92px] mr-7 cursor-pointer" /></Link>
           <div className="h-[46px] w-[90%] md:w-[600px] flex items-center gap-3 px-2 md:px-4 border border-[#dfe1e5] rounded-3xl hover:bg-white hover:shadow-c hover:border-0 focus-within:shadow-c focus-within:border-0">
             <AiOutlineSearch size={24} />
             <input
@@ -63,10 +63,13 @@ const SearchResultHeader = () => {
       </div>
       <div className="flex items-center gap-6 mt-4">
         {menu.map((item, index) => (
-            <span className={`flex items-center gap-1.5 cursor-pointer text-[#5f6368] ${selectedMenu === item.name ? "text-[#1a73e8] font-semibold" : ""}`} key={index}
+            <span className={`flex relative pb-2 items-center gap-1.5 cursor-pointer text-[#5f6368] ${selectedMenu === item.name ? "text-[#1a5be8e7]" : ""}`} key={index}
             onClick={() => clickHandler(item)} >
                 <p className="hidden md:block">{item.icon}</p>
                 <h2>{item.name}</h2>
+                {selectedMenu === item.name && (
+                  <span className="h-[3px] w-full bg-[#1a5be8e7] absolute bottom-0 left-0"/>
+                )}
             </span>
         ))}
       </div>
