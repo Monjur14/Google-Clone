@@ -13,6 +13,7 @@ import MicIcon from "../assets/mic.svg";
 import ImageIcon from "../assets/image.svg";
 
 const SearchResultHeader = () => {
+  const { setImageSearch } = useContext(Context)
   const { query } = useParams();
   const [searchQuery, setSearchQuery] = useState(query || "");
   const navigate = useNavigate();
@@ -23,12 +24,17 @@ const SearchResultHeader = () => {
     }
   };
   const [selectedMenu, setSelectedMenu] = useState("All")
-  const clickHandler = (menui) => {
-    setSelectedMenu(menui.name)
-  }
+  useEffect(() => {
+    return () => setImageSearch(false)
+  }, [])
 
+  const clickHandler = (menui) => {
+    let isTypeImage = menui.name === "Images"
+    setSelectedMenu(menui.name)
+    setImageSearch(isTypeImage ? true : false)
+  }
   return (
-    <div className="pl-10 md:pr-5 md:pt-3 border-b border-[#ebebeb] flex md:block flex-col items-center sticky top-0 bg-white">
+    <div className="pl-10 pt-5 md:pr-5 md:pt-3 border-b border-[#ebebeb] flex md:block flex-col items-center sticky top-0 bg-white">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center grow">
           <Link to={"/"}><img src={Logo} alt="" className="hidden md:block w-[92px] mr-7 cursor-pointer" /></Link>
@@ -50,18 +56,18 @@ const SearchResultHeader = () => {
                   className="cursor-pointer hidden md:block"
                 />
               )}
-              <img src={MicIcon} className="w-[27px] cursor-pointer" alt="" />
+              <img src={MicIcon} className="w-[21px]] hidden  cursor-pointer" alt="" />
               <img
                 src={ImageIcon}
                 alt=""
-                className="w-[27px] hidden md:block cursor-pointer"
+                className="w-[27px] hidden sm:block cursor-pointer"
               />
             </div>
           </div>
         </div>
         <div className="hidden md:block"><ProfileIcon/></div>
       </div>
-      <div className="flex items-center gap-6 mt-4">
+      <div className="flex items-center -ml-9 sm:ml-0 w-full gap-6 mt-4">
         {menu.map((item, index) => (
             <span className={`flex relative pb-2 items-center gap-1.5 cursor-pointer text-[#5f6368] ${selectedMenu === item.name ? "text-[#1a5be8e7]" : ""}`} key={index}
             onClick={() => clickHandler(item)} >
